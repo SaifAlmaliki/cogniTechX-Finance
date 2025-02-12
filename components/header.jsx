@@ -28,10 +28,7 @@ const Header = async () => {
             <a href="#features" className="text-gray-600 hover:text-blue-600">
               Features
             </a>
-            <a
-              href="#testimonials"
-              className="text-gray-600 hover:text-blue-600"
-            >
+            <a href="#testimonials" className="text-gray-600 hover:text-blue-600">
               Testimonials
             </a>
           </SignedOut>
@@ -40,30 +37,29 @@ const Header = async () => {
         {/* Action Buttons */}
         <div className="flex items-center space-x-4">
           <SignedIn>
-            <Link
-              href="/dashboard"
-              className="text-gray-600 hover:text-blue-600 flex items-center gap-2"
-            >
+            <Link href="/dashboard" className="text-gray-600 hover:text-blue-600 flex items-center gap-2">
               <Button variant="outline">
                 <LayoutDashboard size={18} />
                 <span className="hidden md:inline">Dashboard</span>
               </Button>
             </Link>
-            <a href="/transaction/create">
+            <Link href="/transaction/create" className="text-gray-600 hover:text-blue-600 flex items-center gap-2">
               <Button className="flex items-center gap-2">
                 <PenBox size={18} />
                 <span className="hidden md:inline">Add Transaction</span>
               </Button>
-            </a>
+            </Link>
           </SignedIn>
+
           <SignedOut>
             <SignInButton forceRedirectUrl="/dashboard">
               <Button variant="outline">Login</Button>
             </SignInButton>
           </SignedOut>
+
+          {/* User Profile */}
           <SignedIn>
-            <UserButton
-              appearance={{
+            <UserButton appearance={{
                 elements: {
                   avatarBox: "w-10 h-10",
                 },
