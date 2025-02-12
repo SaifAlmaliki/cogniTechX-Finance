@@ -2,6 +2,11 @@ import arcjet, { createMiddleware, detectBot, shield } from "@arcjet/next";
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
+// Polyfill for performance in environments where it's not available
+if (typeof performance === 'undefined') {
+  global.performance = require('perf_hooks').performance;
+}
+
 const isProtectedRoute = createRouteMatcher([
   "/dashboard(.*)",
   "/account(.*)",
