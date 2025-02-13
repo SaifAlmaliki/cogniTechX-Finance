@@ -2,11 +2,6 @@ import arcjet, { createMiddleware, detectBot, shield } from "@arcjet/next";
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
-// Polyfill for performance in environments where it's not available
-if (typeof performance === 'undefined') {
-  global.performance = require('perf_hooks').performance;
-}
-
 const isProtectedRoute = createRouteMatcher([
   "/dashboard(.*)",
   "/account(.*)",
@@ -20,10 +15,10 @@ const aj = arcjet({
   rules: [
     // Shield protection for content and security
     shield({
-      mode: "LIVE",
+      mode: process.env.NODE_ENV === "development" ? "DRY_RUN" : "LIVE",
     }),
     detectBot({
-      mode: "LIVE", // will block requests. Use "DRY_RUN" to log only
+      mode: process.env.NODE_ENV === "development" ? "DRY_RUN" : "LIVE", // will only log in development
       allow: [
         "CATEGORY:SEARCH_ENGINE", // Google, Bing, etc
         "GO_HTTP", // For Inngest
